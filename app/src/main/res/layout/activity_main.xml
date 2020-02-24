@@ -29,7 +29,6 @@
                     style="@style/FadeStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="7dp"
                     android:textColor="@color/colorBlack"
                     android:textSize="20sp"
                     app:layout_constrainedWidth="true"
@@ -40,8 +39,9 @@
 
                 <ImageView
                     android:id="@+id/toolbarButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="30dp"
+                    android:layout_height="28dp"
+                    android:padding="7dp"
                     android:src="@drawable/ic_dropdown_16"
                     android:tint="@color/colorLightBlue"
                     app:layout_constraintBottom_toBottomOf="parent"

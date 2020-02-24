@@ -2,6 +2,7 @@ package com.alexander.documents.api
 
 import com.alexander.documents.entity.City
 import com.alexander.documents.entity.Group
+import com.alexander.documents.entity.Market
 import com.vk.api.sdk.VKApiManager
 import com.vk.api.sdk.VKApiResponseParser
 import com.vk.api.sdk.VKMethodCall
@@ -33,11 +34,53 @@ class CitiesRequest : ApiCommand<List<City>>() {
     override fun onExecute(manager: VKApiManager): List<City> {
         val call = VKMethodCall.Builder()
             .method("database.getCities")
-            .args("need_all", 1)
+            .args("country_id", 1)
             .args("count", 1000)
             .version(manager.config.version)
             .build()
         return manager.execute(call, ResponseApiParserCities())
+    }
+}
+
+class MarketsRequest(private val ownerId: Int) : ApiCommand<List<Market>>() {
+    override fun onExecute(manager: VKApiManager): List<Market> {
+        val call = VKMethodCall.Builder()
+            .method("market.get")
+            .args("owner_id", "-$ownerId")
+            .args("count", 200)
+            .version(manager.config.version)
+            .build()
+        return manager.execute(call, ResponseApiParserMarkets())
+    }
+}
+
+class FaveRequestAdd(
+    private val ownerId: Int,
+    private val marketId: Int
+) : ApiCommand<Int>() {
+    override fun onExecute(manager: VKApiManager): Int {
+        val call = VKMethodCall.Builder()
+            .method("fave.addProduct")
+            .args("owner_id", ownerId)
+            .args("id", marketId)
+            .version(manager.config.version)
+            .build()
+        return manager.execute(call, ResponseApiParserFave())
+    }
+}
+
+class FaveRequestDelete(
+    private val ownerId: Int,
+    private val marketId: Int
+) : ApiCommand<Int>() {
+    override fun onExecute(manager: VKApiManager): Int {
+        val call = VKMethodCall.Builder()
+            .method("fave.addProduct")
+            .args("owner_id", "-$ownerId")
+            .args("id", marketId)
+            .version(manager.config.version)
+            .build()
+        return manager.execute(call, ResponseApiParserFave())
     }
 }
 
@@ -69,6 +112,33 @@ private class ResponseApiParserCities : VKApiResponseParser<List<City>> {
                 cities.add(city)
             }
             return cities
+        } catch (ex: JSONException) {
+            throw VKApiIllegalResponseException(ex)
+        }
+    }
+}
+
+private class ResponseApiParserMarkets : VKApiResponseParser<List<Market>> {
+    override fun parse(response: String): List<Market> {
+        try {
+            val items = JSONObject(response).getJSONObject("response")
+                .getJSONArray("items")
+            val markets = ArrayList<Market>(items.length())
+            for (i in 0 until items.length()) {
+                val market = Market.parse(items.getJSONObject(i))
+                markets.add(market)
+            }
+            return markets
+        } catch (ex: JSONException) {
+            throw VKApiIllegalResponseException(ex)
+        }
+    }
+}
+
+private class ResponseApiParserFave : VKApiResponseParser<Int> {
+    override fun parse(response: String): Int {
+        try {
+            return JSONObject(response).optInt("response", 0)
         } catch (ex: JSONException) {
             throw VKApiIllegalResponseException(ex)
         }
