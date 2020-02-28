@@ -63,7 +63,7 @@ class FaveRequestAdd(
             .method("fave.addProduct")
             .args("owner_id", ownerId)
             .args("id", marketId)
-            .version(manager.config.version)
+            .version("5.92")
             .build()
         return manager.execute(call, ResponseApiParserFave())
     }
@@ -75,10 +75,10 @@ class FaveRequestDelete(
 ) : ApiCommand<Int>() {
     override fun onExecute(manager: VKApiManager): Int {
         val call = VKMethodCall.Builder()
-            .method("fave.addProduct")
-            .args("owner_id", "-$ownerId")
+            .method("fave.removeProduct")
+            .args("owner_id", ownerId)
             .args("id", marketId)
-            .version(manager.config.version)
+            .version("5.92")
             .build()
         return manager.execute(call, ResponseApiParserFave())
     }

@@ -52,7 +52,7 @@ class MarketDetailsActivity : AppCompatActivity() {
             override fun success(result: Int) {
                 if (!isFinishing && result == 1) {
                     containerView.isRefreshing = false
-                    buttonsContainer.displayedChild = 0
+                    buttonsContainer.displayedChild = 1
                 }
             }
 
@@ -68,7 +68,7 @@ class MarketDetailsActivity : AppCompatActivity() {
             override fun success(result: Int) {
                 if (!isFinishing && result == 1) {
                     containerView.isRefreshing = false
-                    buttonsContainer.displayedChild = 1
+                    buttonsContainer.displayedChild = 0
                 }
             }
 

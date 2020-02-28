@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.marketdetails.MarketDetailsActivity"></activity>
+        <activity android:name=".ui.marketdetails.MarketDetailsActivity" />
         <activity android:name=".ui.markets.MarketListActivity" />
         <activity android:name=".ui.groups.MainActivity">
             <intent-filter>

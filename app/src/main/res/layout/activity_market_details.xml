@@ -136,7 +136,7 @@
             android:background="@drawable/round_corners_delete_button"
             android:text="@string/market_delete"
             android:textAllCaps="false"
-            android:textColor="@color/colorWhite"
+            android:textColor="@color/colorBlue"
             android:textSize="16sp" />
 
     </ViewSwitcher>

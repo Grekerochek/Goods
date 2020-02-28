@@ -6,7 +6,7 @@
     <string name="market_title">Товары сообщества %s</string>
     <string name="market_currency">%1s %2s</string>
     <string name="market_add">Добавить в избранное</string>
-    <string name="market_delete">Убрать из избранного</string>
+    <string name="market_delete">Удалить из избранного</string>
     <string name="error_message">Не удалось выполнить операцию, попробуйте позже</string>
     <string name="opened_group">Открытая группа</string>
     <string name="closed_group">Закрытая группа</string>
